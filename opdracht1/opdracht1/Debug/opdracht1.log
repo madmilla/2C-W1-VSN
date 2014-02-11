@@ -1,0 +1,22 @@
+﻿Build started 10-2-2014 18:23:01.
+     1>Project "C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\opdracht1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\/FreeImage/Dist" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(7): error C2065: 'FreeImage' : undeclared identifier
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(7): error C2228: left of '.Initialise' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(8): error C2065: 'FreeImage' : undeclared identifier
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(8): error C2228: left of '.GetVersion' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(9): error C2065: 'FreeImage' : undeclared identifier
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(9): error C2228: left of '.GetCopyrightMessage' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(10): error C2065: 'FreeImage' : undeclared identifier
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(10): error C2228: left of '.DeInitialise' must have class/struct/union
+                 type is 'unknown-type'
+     1>Done Building Project "C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\opdracht1.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.89
