@@ -52,12 +52,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)/FreeImage/Dist</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/FreeImage</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)/FreeImage/Dist</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)/FreeImage</AdditionalLibraryDirectories>
       <AdditionalDependencies>FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -80,15 +80,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FreeImage\Dist\FreeImage.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FreeImage\Dist\FreeImage.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="FreeImage\Dist\FreeImage.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

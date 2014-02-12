@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Source.cpp"
+#include "FreeImage.h"
 
 using namespace std;
 
@@ -10,6 +10,10 @@ int main(int argc, char* argv[]){
 		cout << "argv[" << i << "] = " << argv[i] << endl;
 
 	if (argv[1] == NULL){
+		FreeImage_Initialise();
+		cout << "FreeImage " << FreeImage_GetVersion() << "nn";
+		cout << FreeImage_GetCopyrightMessage() << "nnnn";
+		FreeImage_DeInitialise();
 		return 666;
 	}
 	else{
