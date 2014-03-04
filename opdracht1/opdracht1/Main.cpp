@@ -2,6 +2,7 @@
 #include <fstream>
 #include "FreeImage.h"
 #include <string.h>
+#include "bm.h"
 
 using namespace std;
 
@@ -40,11 +41,41 @@ int main(int argc, char* argv[]){
 	5. Bereken de 10-bin histogrammen voor het rode, groene en blauwe kanaal van het inputbeeld en output deze als csv-file, (het binnummer kan berekend worden door: “(int) ((intensiteit_kanaal * 10) / 256)”).
 	*/
 
-	if (check_for_lack_of_first_parameter(argv[1])){
+	if (check_for_lack_of_first_parameter(argv[1]))
+	{
 		printf("This program requires a single parameter:\n");
 		printf("opdract1 iamtheonewhoknocks.jpg");
-		return 1;
-	}else if (check_for_extra_parameters(argv[2])){
+		
+		bmpFile *bmp;
+		bmp = bmp_open("test2.bmp");
+		int i, j;
+		rgb_pixel pixel = { 128, 64, 0, 0 };
+
+		//if (argc < 5) {
+		//	printf("Usage: %s filename width height depth.\n", argv[0]);
+		//	return 1;
+		//}
+
+	//	if ((bmp = bmp_create(1024, 1024, 24)) == NULL) {
+	//		printf("Invalid depth value: %s.\n", 24);
+//			return 1;
+	//	}
+
+		for (i = 10, j = 10; j < 1024; ++i, ++j) {
+			bmp_set_pixel(bmp, i, j, pixel);
+			pixel.red++;
+			pixel.green++;
+			pixel.blue++;
+			bmp_set_pixel(bmp, i + 1, j, pixel);
+			bmp_set_pixel(bmp, i, j + 1, pixel);
+		}
+
+		bmp_save(bmp, "test.bmp");
+		bmp_destroy(bmp);
+		return 0;
+
+	}else if (check_for_extra_parameters(argv[2]))
+	{
 		printf("This program requires a single parameter\n");
 		printf("any after the first parameter will be ignored.");
 		return 2;
