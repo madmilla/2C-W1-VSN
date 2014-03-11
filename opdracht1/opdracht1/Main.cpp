@@ -47,7 +47,7 @@ int main(int argc, char* argv[]){
 		printf("opdract1 iamtheonewhoknocks.jpg");
 		
 		bmpFile *bmp;
-		bmp = bmp_open("test2.bmp");
+		bmp = bmp_open("test4.bmp");
 		int i, j;
 		rgb_pixel pixel = { 128, 64, 0, 0 };
 
@@ -70,7 +70,7 @@ int main(int argc, char* argv[]){
 			bmp_set_pixel(bmp, i, j + 1, pixel);
 		}
 
-		bmp_save(bmp, "test.bmp");
+		bmp_save(bmp, "artorias.bmp");
 		bmp_destroy(bmp);
 		return 0;
 

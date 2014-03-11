@@ -32,7 +32,7 @@ typedef enum {
 
 
 typedef struct {
-	unsigned char signature[2];   /* the magic number used to identify the BMP file:
+	unsigned short signature[2];   /* the magic number used to identify the BMP file:
 								  0x42 0x4D (Hex code points for B and M).
 								  The following entries are possible:
 								  BM - Windows 3.1x, 95, NT, ... etc
@@ -49,25 +49,25 @@ typedef struct {
 } bmp_header;
 
 typedef struct {
-	unsigned int header_size;     /* the size of this header (40 bytes) */
+	unsigned int header_size;     /* INT the size of this header (40 bytes) */
 	unsigned int width;         /* the bitmap width in pixels */
 	unsigned int height;        /* the bitmap height in pixels */
 	unsigned short nr_planes;       /* the number of color planes being used. Must be set to 1. */
 	unsigned short bits_per_pixel;         /* the number of bits per pixel,
 										   which is the color depth of the image.
 										   Typical values are 1, 4, 8, 16, 24 and 32. */
-	unsigned int compress_type; /* the compression method being used.
+	unsigned int compress_type; /* INT the compression method being used.
 								See also bmp_compression_method_t. */
-	unsigned int bmp_bytesize;    /* the image size. This is the size of the raw bitmap
+	unsigned int bmp_bytesize;    /* INT the image size. This is the size of the raw bitmap
 								  data (see below), and should not be confused
 								  with the file size. */
-	unsigned int hres;          /* the horizontal resolution of the image.
+	unsigned int xPixelsPerMeter;       /* the horizontal resolution of the image.
 								(pixel per meter) */
-	unsigned int vres;          /* the vertical resolution of the image.
+	unsigned int yPixelsPerMeter;          /* the vertical resolution of the image.
 								(pixel per meter) */
-	unsigned int nr_colors;       /* the number of colors in the color palette,
+	unsigned int nr_colors;       /* INT the number of colors in the color palette,
 								  or 0 to default to 2<sup><i>n</i></sup>. */
-	unsigned int nr_imp_colors;    /* the number of important colors used,
+	unsigned int nr_imp_colors;    /*  INT the number of important colors used,
 								   or 0 when every color is important;
 								   generally ignored. */
 } bmp_dib_header;
@@ -85,6 +85,8 @@ struct bmpFile{
 	rgb_pixel *colors;
 
 };
+
+
 /*
 Create a grayscale version of the bmp
 */
@@ -94,7 +96,7 @@ static void bmp_create_grayscale(bmpFile *bmp);
 /*
 Getters
 */
-bmpFile * bmp_open(const char *filename);
+
 unsigned int bmp_get_width(bmpFile *bmp);
 
 unsigned int bmp_get_height(bmpFile *bmp);
@@ -102,7 +104,14 @@ unsigned int bmp_get_height(bmpFile *bmp);
 unsigned int bmp_get_depth(bmpFile *bmp);
 
 rgb_pixel *bmp_get_pixel(bmpFile *bmp, unsigned int x, unsigned int y);
+
 bool bmp_set_pixel(bmpFile *bmp, unsigned int x, unsigned int y, rgb_pixel pixel);
+
+bool SafeFread(char* buffer, int size, int number, FILE* fp);
+
+bmpFile * bmp_open(const char *fileName);
+
+int TellNumberOfColors(unsigned int bpp);
 
 bool bmp_save(bmpFile *bmp, const char *filename);
 
@@ -114,7 +123,7 @@ static void bmp_write_palette(bmpFile *bmp, FILE *fp);
 
 bmpFile * bmp_create(unsigned int width, unsigned int height, unsigned int bits_per_pixel);
 
-static void bmp_malloc_pixels(bmpFile *bmp);
+static void bmp_malloc_pixels_from_bmp(bmpFile *bmp);
 
 static void bmp_malloc_colors(bmpFile *bmp);
 
@@ -122,21 +131,20 @@ static void bmp_create_standard_color_table(bmpFile *bmp);
 
 static void bmp_create_grayscale_color_table(bmpFile *bmp);
 
-
 static unsigned int unsignedint_pow(unsigned int base, unsigned int bits_per_pixel);
 
 /*
 Get row data
 */
-static void bmp_get_row_data_for_1(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
+static bool bmp_get_row_data_for_1(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
 
-static void bmp_get_row_data_for_4(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
+static bool bmp_get_row_data_for_4(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
 
-static void bmp_get_row_data_for_8(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
+static bool bmp_get_row_data_for_8(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
 
-static void bmp_get_row_data_for_24(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
+static bool bmp_get_row_data_for_24(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
 
-static void bmp_get_row_data_for_32(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
+static bool bmp_get_row_data_for_32(bmpFile *bmp, unsigned char *buffer, unsigned int buffer_length, unsigned int row);
 
 #define INT_SQUARE(v) ((int)((v) * (v)))
 
