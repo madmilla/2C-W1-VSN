@@ -622,7 +622,7 @@ static void bmp_malloc_pixels_from_bmp(bmpFile *bmp){
 	bmp->pixels = (rgb_pixel **)malloc(sizeof(rgb_pixel *)* bmp->dib.width);
 	
 	for (i = 0; i < bmp->dib.width; ++i){
-		bmp->pixels[0+i] = (rgb_pixel *)malloc(sizeof(rgb_pixel)* bmp->dib.height);
+		bmp->pixels[0 + i] = (rgb_pixel *)malloc(sizeof(rgb_pixel)* bmp->dib.height);
 		for (j = 0; j < bmp->dib.height; ++j){
 
 			bmp->pixels[i][j].red = 255;

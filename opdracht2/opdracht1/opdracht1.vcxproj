@@ -13,7 +13,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{47643E82-DB5A-4CDD-8B5F-000C09F35C54}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>opdracht1</RootNamespace>
+    <RootNamespace>opdracht2</RootNamespace>
+    <ProjectName>opdracht2</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -79,7 +80,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bm.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="manipulate.cpp" />
+    <ClCompile Include="histogram.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bm.h" />
+    <ClInclude Include="histogram.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="manipulate.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,30 @@
-﻿Build started 11-3-2014 14:22:56.
+﻿Build started 17-3-2014 17:11:19.
      1>Project "C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\opdracht1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\/FreeImage" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt bm.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\/FreeImage" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt bm.cpp image.cpp manipulate.cpp histogram.cpp Main.cpp util.cpp
+         util.cpp
+         Main.cpp
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(101): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\main.cpp(103): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+         histogram.cpp
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\histogram.cpp(12): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\histogram.cpp(13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+         manipulate.cpp
+         image.cpp
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(7): warning C4101: 'x' : unreferenced local variable
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(20): warning C4101: 'temp_calc' : unreferenced local variable
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(34): warning C4101: 'x' : unreferenced local variable
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(47): warning C4101: 'temp_calc' : unreferenced local variable
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(66): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(67): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(75): warning C4101: 'temp_calc' : unreferenced local variable
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(99): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(131): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\image.cpp(165): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
          bm.cpp
      1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\bm.cpp(55): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\bm.cpp(127): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
@@ -22,12 +45,17 @@
      1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\bm.cpp(897): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\bm.cpp(909): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\madmilla\documents\github\2c-w1-vsn\opdracht1\opdracht1\bm.cpp(931): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\Debug\opdracht1.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\/FreeImage" FreeImage.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\Debug\opdracht1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\Debug\opdracht1.lib" /MACHINE:X86 Debug\bm.obj
+         Debug\image.obj
+         Debug\manipulate.obj
+         Debug\histogram.obj
          Debug\Main.obj
+         Debug\util.obj
          opdracht1.vcxproj -> C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\Debug\opdracht1.exe
      1>Done Building Project "C:\Users\Madmilla\Documents\GitHub\2C-W1-VSN\opdracht1\opdracht1\opdracht1.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.19
+Time Elapsed 00:00:06.73
