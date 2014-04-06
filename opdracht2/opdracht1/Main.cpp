@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <string.h>
@@ -6,6 +7,9 @@
 #include "histogram.h"
 #include "util.h"
 #include "image.h"
+#include "noise.h"
+#include "median.h"
+#include "linkedlist.h"
 
 using namespace std;
 
@@ -13,7 +17,7 @@ bool check_for_lack_of_first_parameter(char* first_parameter){
 	return (first_parameter == NULL) ? true : false;
 }
 bool check_for_extra_parameters(char * second_paramter){
-	return (second_paramter == NULL) ? false : true;
+	return (second_paramter == NULL) ? true : false;
 }
 bool check_file_existance(char * name){
 	ifstream myfile(name);
@@ -26,6 +30,20 @@ bool check_file_existance(char * name){
 		return false;
 	}
 }
+void showInstructions(){
+	cout << "opdracht2.exe alex.jpg 3 10 3\n" << endl;
+	cout << "means noise with median and show the succesrate\n" << endl;
+	cout << "10% noise and 3x3 mask.\n\n" << endl;
+	cout << "1st parameter = filename (alex.jpg)\n" << endl;
+	cout << "2nd parameter = method\n" << endl;
+	cout << "You can use ether the number or the methodname\n" << endl;
+	cout << "1 = NOISE_ONLY\n" << endl;
+	cout << "2 = NOISE_MEDIAN\n" << endl;
+	cout << "3 = NOISE_MEDIAN_SUCCESRATE\n" << endl;
+	cout << "4 = NOISE_MEDIAN_MIN_MAX\n" << endl;
+	cout << "3rd parameter = Noise percentage to be added.\n" << endl;
+	cout << "4th parameter is the size of median mask (3,5,6,7)." << endl;
+}
 
 int main(int argc, char* argv[]){
 	enum greyScale { general, lightness, luminosity };
@@ -33,98 +51,95 @@ int main(int argc, char* argv[]){
 	@author Lars Veenendaal lars.veenendaal@student.hu.nl 1633223
 
 	Schrijf een command-line-programma dat achtereenvolgens
-	1. Een beeld (argument 1) inleest, naar grijswaarden converteert, en opslaat onder de naam “grey_”+[original filename].
-	2. Twee genormaliseerde histogrammen van dit grijze beeld berekent en opslaat als csv (comma separated values) file, met op elke regel: “[binnr], [density]”.
-	a. De eerste met 256 bins (van 0 tot 255).
-	b. De tweede met 10 bins (van 0 tot 9), waarbij het binnummer bij een intensiteit berekend kan worden door: “(int) ((intensiteit * 10) / 256)”.
-	3. Histogram equalization van het grijze beeld uitvoert (op basis van de 256 bins) en de uitkomst opslaat in een bestand met de naam “equalized_[original filename]”.
-	filename]”.
-	Experimenteer op een aantal voorbeelden en beschrijf in deze in je meetrapport.
-	4. Output bij het eerste programma ook de beelden “R_”+[original filename], “G_”+[original filename] en “B_”+[original filename], waarop resp. alleen het rode, groene en blauwe kanaal te zien is.
-	5. Bereken de 10-bin histogrammen voor het rode, groene en blauwe kanaal van het inputbeeld en output deze als csv-file, (het binnummer kan berekend worden door: “(int) ((intensiteit_kanaal * 10) / 256)”).
+	6. Schrijf een command-line programma dat achtereenvolgens
+		DONE a. Een beeld (argument 1) inleest, er salt&pepper-ruis aan toevoegt, en weer opslaat onder de naam “noise_[original filename]”.
+		DONE b. Het median filter toepast op het beeld met ruis, en het resultaat opslaat onder de naam “median_[original filename]”.
+	Voer je programma uit op een aantal voorbeelden en beschrijf in je verslag wat je opvalt aan het resultaat.
+	NB: Let hierbij goed op de efficiëntie van jouw implementatie van het median filter, omdat je deze ook nodig zult gaan hebben in het project.
+	7. Pas het programma aan zodat deze ook
+		a. Het minimum-filter toepast op het beeld met ruis, en het resultaat opslaat onder de naam “min_[original filename]”.
+		b. Het maximum-filter toepast op het beeld met ruis, en het resultaat opslaat onder de naam “max_[original filename]”.
+	Experimenteer met de drie resultaatbeelden en vergelijk deze in je meetrapport.
 	*/
 
 	if (check_for_lack_of_first_parameter(argv[1]))
 	{
-		printf("Missing parameters");
+		printf("Missing parameters\n");
+		showInstructions();
 		return 0;
 
 	}
 	else if (check_for_extra_parameters(argv[2]))
 	{
-		printf("This program requires a single parameter\n");
-		printf("any after the first parameter will be ignored.");
+		printf("This program requires a multiple parameters\n");
+		showInstructions();
 		return 2;
-	}
-	if (check_file_existance(argv[1])){
+	}else if (check_file_existance(argv[1])){
 		char * filename = argv[1];
 		printf("File succesfully opened.\n");
 		FreeImage_Initialise();
 		cout << "FreeImage " << FreeImage_GetVersion() << "\n";
 		cout << FreeImage_GetCopyrightMessage() << "\n";
-
 		FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(filename, 0);//Automatocally detects the format(from over 20 formats!)
-
-		int result_array_256[256];
-		int result_array_10[11];
 		FIBITMAP * FreeImage = FreeImage_Load(formato, filename);
         Image temp = Image(FreeImage);
-		Image temp_copy_1 = temp, temp_copy_2 = temp, temp_copy_3 = temp, temp_copy_4 = temp, temp_copy_5 = temp, temp_copy_6 = temp, temp_copy_7 = temp;
-		temp_copy_1.getRGBChannelSeperatedIntensity(filename);
-
-		temp_copy_2.getGreenChannelOnly();
-		temp_copy_3.getBlueChannelOnly();
-		temp_copy_1.save_image(FreeImage, "R_", filename);
-		temp_copy_2.save_image(FreeImage, "G_", filename);
-		temp_copy_3.save_image(FreeImage, "B_", filename);
-
-		temp_copy_4.ConvertToGreyscaleWithDensityArray(result_array_256, result_array_10, general);
-		//temp_copy_4.ConvertToGreyscale();
-		temp_copy_4.save_image(FreeImage, "GR_", filename);
-		temp_copy_5.ConvertToGreyscale(lightness);
-		temp_copy_5.save_image(FreeImage, "GR_LI_", filename);
-		temp_copy_6.ConvertToGreyscale(luminosity);
-		temp_copy_6.save_image(FreeImage, "GR_LU_", filename);
-
-		
-		int loop = 0;
-		int eq_array[256];
-		
-		for (loop = 0; loop < 256; loop++){
-			eq_array[loop] = 0;
+		char * temp_var = argv[2];
+		if (atoi(argv[2]) == 1 || temp_var == string("NOISE_ONLY")){
+			cout << "Starting NOISE_ONLY" << endl;
+			int noise_setting = (argv[3] == NULL) ? 2 : atoi(argv[3]);
+			
+			Noise noise_image = temp;
+			noise_image.addNoise(noise_setting);
+			noise_image.save_image(FreeImage, "NOISE_", filename);
 		}
-		int w = temp_copy_7.getWidth();
-		int h = temp_copy_7.getHeight();
-		
-		float scaling_factor = 255.0f / (w*h);
-		printf("sf: %f %i %i \n", scaling_factor, w, h);
-		eq_array[0] = scaling_factor *  result_array_256[0];
-		for (loop = 1; loop < 256; loop++){
-			eq_array[loop] = eq_array[loop - 1] + scaling_factor * result_array_256[loop];
+		if (atoi(argv[2]) == 2 || temp_var == string("NOISE_MEDIAN")){
+			cout << "Starting NOISE_MEDIAN" << endl;
+			int noise_setting = (argv[3] == NULL) ? 2 : atoi(argv[3]);
+			int median_mask = (argv[4] == NULL) ? 3 : atoi(argv[4]);
+			Noise noise_image = temp;
+			noise_image.addNoise(noise_setting);
+			noise_image.save_image(FreeImage, "NOISE_", filename);
+			Median median_image = noise_image;
+			median_image.MedianFilterRGB(median_mask);
+//			median_image.save_image(FreeImage, "MEDIAN_", filename);
 		}
-		/*
-		for (loop = 0; loop < 11; loop++){
-			eq_array[loop] = 0;
+		if (atoi(argv[2]) == 3 || temp_var == string("NOISE_MEDIAN_SUCCESRATE")){
+			cout << "Starting NOISE_MEDIAN_SUCCESRATE" << endl;
+			LinkedList<int> list;
+			int noise_setting = (argv[3] == NULL) ? 2 : atoi(argv[3]);
+			int median_mask = (argv[4] == NULL) ? 3 : atoi(argv[4]);
+			Noise noise_image = temp;
+			noise_image.addNoiseWithNoiseList(noise_setting, list);
+			noise_image.save_image(FreeImage, "NOISE_", filename);
+
+			Median median_image = noise_image;
+			median_image.MedianFilterRGB(median_mask);
+//			median_image.save_image(FreeImage, "MEDIAN_", filename);
+			median_image.checkSuccesAgainstNoiseList(list);
 		}
-		int w = temp_copy_7.getWidth();
-		int h = temp_copy_7.getHeight();
-
-		float scaling_factor = 255.0f / (w*h);
-		printf("sf: %f %i %i \n", scaling_factor, w, h);
-		eq_array[0] = scaling_factor *  result_array_10[0];
-		for (loop = 1; loop < 11; loop++){
-			eq_array[loop] = eq_array[loop - 1] + scaling_factor * result_array_10[loop];
+		if (atoi(argv[2]) == 4 || temp_var == string("NOISE_MEDIAN_MIN_MAX")){
+			cout << "Starting NOISE_MEDIAN_MIN_MAX" << endl;
+			cout << "Go get some coffee this will take awhile." << endl;
+			cout << "MIN mask is 3x3 and MAX mask is currently 11x11.\n25x25 seemed like overkill to me." << endl;
+			cout << "My implementation of median seems like the bogosort method of going at it." << endl;
+			int noise_setting = (argv[3] == NULL) ? 2 : atoi(argv[3]);
+			Noise noise_image = temp;
+			noise_image.addNoise(noise_setting);
+			noise_image.save_image(FreeImage, "NOISE_", filename);
+			Median median_image_min(noise_image);
+			Median median_image_max(noise_image);
+			median_image_min.MedianFilterRGB(3);
+			median_image_min.save_image(FreeImage, "MIN_", filename);
+			median_image_max.MedianFilterRGB(5);
+			median_image_max.save_image(FreeImage, "MAX_", filename);
 		}
-		*/
-		temp_copy_7.equalizeHistogram(eq_array, luminosity);
-		temp_copy_7.save_image(FreeImage, "GR_EQ_", filename);
-
-		saveHistogramToCsv(255, result_array_256, filename, "_256.csv");
-		saveHistogramToCsv(10, result_array_10, filename, "_10.csv");
-		saveHistogramToCsv(10, eq_array, filename,"_eq.csv");
-
-//		cout << "The size of the image is: " << argv[1] << " es " << w << "*" << h << endl; //Some debugging code
-
+		if (atoi(argv[2]) == 5){
+			LinkedList<int> list;
+			list.add(1,1,5);
+			list.add(1, 1, 5); list.add(1, 1, 5); list.add(1, 1, 5);
+			list.print();
+		}
+		cout << "Method ended. Exiting program." << endl;
 		FreeImage_Unload(FreeImage);
 		FreeImage_DeInitialise();
 		return 0;

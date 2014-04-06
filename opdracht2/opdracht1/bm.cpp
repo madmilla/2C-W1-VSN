@@ -52,7 +52,7 @@ static void bmp_create_grayscale(bmpFile *bmp){
 		step_size = 255;
 	}
 	
-	for (i = 0; i < bmp->dib.nr_colors; ++i){
+	for (i = 0; i <= bmp->dib.nr_colors; ++i){
 		value = i * step_size;
 		rgb_pixel color = { value, value, value, 0 };
 		bmp->colors[i] = color;

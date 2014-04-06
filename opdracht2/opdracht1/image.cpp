@@ -1,12 +1,11 @@
 #include "image.h"
-
 Image::Image(Image &img){
 	width = img.getWidth();
 	height = img.getHeight();
 
 	int x;
-	pixelData = new Pixel*[width]; // NOTE the "int*" to indicate tileGids is a new array of pointers to int.
-	for (int i = 0; i < width; i++) // Initialize each element in layer.tileGids[] to be a pointer to int.
+	pixelData = new Pixel*[width]; 
+	for (int i = 0; i < width; i++) 
 	{
 		pixelData[i] = new Pixel[height];
 	}
@@ -25,15 +24,41 @@ Image::Image(Image &img){
 			pixelData[i][j].BLUE = img.getBlue(i, j);
 		}
 	}
-	printf("Constructor by reference \n");
+//	printf("Constructor by reference \n");
 }
+Image::Image(const Image *img){
+	width = img->getWidth();
+	height = img->getHeight();
 
+	int x;
+	pixelData = new Pixel*[width];
+	for (int i = 0; i < width; i++)
+	{
+		pixelData[i] = new Pixel[height];
+	}
+	for (int i = 0; i < width; i++){
+		for (int j = 0; j < height; j++){
+			pixelData[i][j].RED = 0;
+			pixelData[i][j].GREEN = 0;
+			pixelData[i][j].BLUE = 0;
+		}
+	}
+	int i = 0, j = 0, temp_calc;
+	for (i = 0; i < width; i++){
+		for (j = 0; j < height; j++){
+			pixelData[i][j].RED = img->getRed(i, j);
+			pixelData[i][j].GREEN = img->getGreen(i, j);
+			pixelData[i][j].BLUE = img->getBlue(i, j);
+		}
+	}
+	//	printf("Constructor by reference \n");
+}
 Image::Image(FIBITMAP * dib){
 	height = FreeImage_GetHeight(dib);
 	width = FreeImage_GetWidth(dib);
 	int x;
-	pixelData = new Pixel*[width]; // NOTE the "int*" to indicate tileGids is a new array of pointers to int.
-	for (int i = 0; i < width; i++) // Initialize each element in layer.tileGids[] to be a pointer to int.
+	pixelData = new Pixel*[width];
+	for (int i = 0; i < width; i++) 
 	{
 		pixelData[i] = new Pixel[height];
 	}
@@ -54,6 +79,16 @@ Image::Image(FIBITMAP * dib){
 			pixelData[i][j].BLUE = temp_color.rgbBlue;
 		}
 	}
+}
+Image::~Image(){
+	for (int i = 0; i < width; i++)
+	{
+		delete[] pixelData[i]; // Deallocate each row.
+	}
+	delete[] pixelData;
+}
+Pixel** Image::getPixelData(){
+	return pixelData;
 }
 
 // Saving
@@ -84,6 +119,7 @@ FIBITMAP * Image::UpdateForSaving(FIBITMAP * dib){
 	}
 	return dib;
 }
+
 void Image::ConvertToGreyscale(int method = 0){
 //	int height = getHeight();
 //	int width = getWidth();
@@ -148,7 +184,6 @@ void Image::ConvertToGreyscaleWithDensityArray(int(&result_array)[256], int(&res
 	}
 }
 
-
 void Image::equalizeHistogram(int eq_array[], int method = 0){
 //	int height = getHeight();
 //	int width = FreeImage_GetWidth(image);
@@ -178,39 +213,26 @@ void Image::equalizeHistogram(int eq_array[], int method = 0){
 	}
 }
 
-int Image::getWidth(){
+int Image::getWidth()const{
 	return width;
 }
-int Image::getHeight(){
+int Image::getHeight()const{
 	return height;
 }
-Pixel Image::getPixel(int row, int col){
+Pixel Image::getPixel(int row, int col)const{
 	return pixelData[row][col];
 }
-
-void Image::setPixel(int row, int col, Pixel p){
-	pixelData[row][col] = p;
-}
-
-Image::~Image(){
-	for (int i = 0; i < width; i++)
-	{
-		delete[] pixelData[i]; // Deallocate each row.
-	}
-	delete[] pixelData;
-}
-unsigned char Image::getRed(int row, int col){
+unsigned char Image::getRed(int row, int col) const{
 	return pixelData[row][col].RED;
 }
-unsigned char Image::getGreen(int row, int col){
+unsigned char Image::getGreen(int row, int col)const{
 	return pixelData[row][col].GREEN;
 }
-
-unsigned char Image::getBlue(int row, int col){
+unsigned char Image::getBlue(int row, int col)const{
 	return pixelData[row][col].BLUE;
 }
 
-void Image::getRGBChannelSeperatedIntensity(char * filename){
+void Image::getRGBChannelSeperatedIntensity(char * filename)const{
 	int r[11], g[11], b[11];
 	for (int array_filler = 0; array_filler <= 10; array_filler++){
 		r[array_filler] = 0;
@@ -232,8 +254,7 @@ void Image::getRGBChannelSeperatedIntensity(char * filename){
 	saveHistogramToCsv(10, g, filename, "_G_10.csv");
 	saveHistogramToCsv(10, b, filename, "_B_10.csv");
 }
-
-void Image::getRedChannelOnly(){
+void Image::getRedChannelOnly()const{
 	int i = 0, j = 0, temp_10 = 0;
 	for (i = 0; i < width; i++){
 		for (j = 0; j < height; j++){
@@ -243,7 +264,7 @@ void Image::getRedChannelOnly(){
 		}
 	}
 }
-void Image::getGreenChannelOnly(){
+void Image::getGreenChannelOnly()const{
 	int i = 0, j = 0;
 	for (i = 0; i < width; i++){
 		for (j = 0; j < height; j++){
@@ -253,8 +274,7 @@ void Image::getGreenChannelOnly(){
 		}
 	}
 }
-
-void Image::getBlueChannelOnly(){
+void Image::getBlueChannelOnly()const{
 	int i = 0, j = 0;
 	for (i = 0; i < width; i++){
 		for (j = 0; j < height; j++){
@@ -263,4 +283,10 @@ void Image::getBlueChannelOnly(){
 			pixelData[i][j].RED = 0;
 		}
 	}
+}
+void Image::setPixel(int row, int col, Pixel p){
+	pixelData[row][col] = p;
+}
+void Image::setRed(int row, int col, int val){
+	pixelData[row][col].RED = val;
 }

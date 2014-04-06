@@ -85,13 +85,20 @@
     <ClCompile Include="manipulate.cpp" />
     <ClCompile Include="histogram.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="median.cpp" />
+    <ClCompile Include="node.cpp" />
+    <ClCompile Include="noise.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bm.h" />
     <ClInclude Include="histogram.h" />
     <ClInclude Include="image.h" />
+    <ClInclude Include="linkedList.h" />
     <ClInclude Include="manipulate.h" />
+    <ClInclude Include="median.h" />
+    <ClInclude Include="node.h" />
+    <ClInclude Include="noise.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
