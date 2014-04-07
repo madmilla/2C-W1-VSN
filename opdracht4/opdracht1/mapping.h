@@ -3,6 +3,7 @@
 
 #include "Image.h";
 #include "linkedList.h";
+#define PI 3.14159265
 
 //@author Lars Veenendaal
 //V0.1 06-04-14
@@ -14,10 +15,10 @@ private:
 public:
 	Pixel ** MappingData;
 	Mapping();
-	Mapping(Image img) : Image(img){};
-	Mapping(const Mapping& rhs){}
+//	Mapping(Image img) : Image(img){};
 	Mapping(const Image& rhs);
-	void transformMapping();
+	~Mapping();
+	void transformMapping(double * matrix, int interpolatie);
 	//~Noise(){
 	//	this->~Image();
 	//}

@@ -36,7 +36,6 @@ void showInstructions(){
 }
 
 int main(int argc, char* argv[]){
-	enum greyScale { general, lightness, luminosity };
 	/*
 	@author Lars Veenendaal lars.veenendaal@student.hu.nl 1633223
 

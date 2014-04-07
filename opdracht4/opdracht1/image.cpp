@@ -213,6 +213,45 @@ void Image::equalizeHistogram(int eq_array[], int method = 0){
 	}
 }
 
+
+void Image::setGreyScalePixel(int row, int col, int val){
+	pixelData[row][col].RED = val;
+	pixelData[row][col].GREEN = val;
+	pixelData[row][col].BLUE = val;
+}
+
+
+void Image::getRedChannelOnly()const{
+	int i = 0, j = 0, temp_10 = 0;
+	for (i = 0; i < width; i++){
+		for (j = 0; j < height; j++){
+			pixelData[i][j].BLUE = 0;
+			pixelData[i][j].GREEN = 0;
+			pixelData[i][j].RED = pixelData[i][j].RED;
+		}
+	}
+}
+void Image::getGreenChannelOnly()const{
+	int i = 0, j = 0;
+	for (i = 0; i < width; i++){
+		for (j = 0; j < height; j++){
+			pixelData[i][j].BLUE = 0;
+			pixelData[i][j].GREEN = pixelData[i][j].GREEN;
+			pixelData[i][j].RED = 0;
+		}
+	}
+}
+void Image::getBlueChannelOnly()const{
+	int i = 0, j = 0;
+	for (i = 0; i < width; i++){
+		for (j = 0; j < height; j++){
+			pixelData[i][j].BLUE = pixelData[i][j].BLUE;
+			pixelData[i][j].GREEN = 0;
+			pixelData[i][j].RED = 0;
+		}
+	}
+}
+
 int Image::getWidth()const{
 	return width;
 }
@@ -254,43 +293,8 @@ void Image::getRGBChannelSeperatedIntensity(char * filename)const{
 	saveHistogramToCsv(10, g, filename, "_G_10.csv");
 	saveHistogramToCsv(10, b, filename, "_B_10.csv");
 }
-void Image::getRedChannelOnly()const{
-	int i = 0, j = 0, temp_10 = 0;
-	for (i = 0; i < width; i++){
-		for (j = 0; j < height; j++){
-			pixelData[i][j].BLUE = 0;
-			pixelData[i][j].GREEN = 0;
-			pixelData[i][j].RED = pixelData[i][j].RED;
-		}
-	}
-}
-void Image::getGreenChannelOnly()const{
-	int i = 0, j = 0;
-	for (i = 0; i < width; i++){
-		for (j = 0; j < height; j++){
-			pixelData[i][j].BLUE = 0;
-			pixelData[i][j].GREEN = pixelData[i][j].GREEN;
-			pixelData[i][j].RED = 0;
-		}
-	}
-}
-void Image::getBlueChannelOnly()const{
-	int i = 0, j = 0;
-	for (i = 0; i < width; i++){
-		for (j = 0; j < height; j++){
-			pixelData[i][j].BLUE = pixelData[i][j].BLUE;
-			pixelData[i][j].GREEN = 0;
-			pixelData[i][j].RED = 0;
-		}
-	}
-}
 unsigned char Image::getGreyScalePixel(int row, int col){
 	return pixelData[row][col].RED;
-}
-void Image::setGreyScalePixel(int row, int col, int val){
-	pixelData[row][col].RED = val;
-	pixelData[row][col].GREEN = val;
-	pixelData[row][col].BLUE = val;
 }
 void Image::setPixel(int row, int col, Pixel p){
 	pixelData[row][col] = p;

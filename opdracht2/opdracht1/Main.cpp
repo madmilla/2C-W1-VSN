@@ -31,17 +31,17 @@ bool check_file_existance(char * name){
 	}
 }
 void showInstructions(){
-	cout << "opdracht2.exe alex.jpg 3 10 3\n" << endl;
-	cout << "means noise with median and show the succesrate\n" << endl;
-	cout << "10% noise and 3x3 mask.\n\n" << endl;
-	cout << "1st parameter = filename (alex.jpg)\n" << endl;
-	cout << "2nd parameter = method\n" << endl;
-	cout << "You can use ether the number or the methodname\n" << endl;
-	cout << "1 = NOISE_ONLY\n" << endl;
-	cout << "2 = NOISE_MEDIAN\n" << endl;
-	cout << "3 = NOISE_MEDIAN_SUCCESRATE\n" << endl;
+	cout << "opdracht2.exe alex.jpg 3 10 3" << endl;
+	cout << "means noise with median and show the succesrate" << endl;
+	cout << "10% noise and 3x3 mask.\n" << endl;
+	cout << "1st parameter = filename (alex.jpg)" << endl;
+	cout << "2nd parameter = method" << endl;
+	cout << "You can use ether the number or the methodname" << endl;
+	cout << "1 = NOISE_ONLY" << endl;
+	cout << "2 = NOISE_MEDIAN" << endl;
+	cout << "3 = NOISE_MEDIAN_SUCCESRATE" << endl;
 	cout << "4 = NOISE_MEDIAN_MIN_MAX\n" << endl;
-	cout << "3rd parameter = Noise percentage to be added.\n" << endl;
+	cout << "3rd parameter = Noise percentage to be added." << endl;
 	cout << "4th parameter is the size of median mask (3,5,6,7)." << endl;
 }
 
